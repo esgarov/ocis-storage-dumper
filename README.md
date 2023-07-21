@@ -10,26 +10,7 @@ Ensure you have Python 3.6+ installed on your system.
 
 To use this script, run the following command:
 
-```bash
-python ocis_storage_dumper.py [topdir]
-
-Sure, here is a basic README.md template for your GitHub repository.
-
-markdown
-
-# OCIS Storage Dumper
-
-OCIS Storage Dumper is a Python script to traverse an ownCloud Infinite Scale (OCIS) storage system's directory structure, extract metadata from `.mpk` files and copy the blob files associated with these metadata to a separate directory.
-
-## Prerequisites
-
-Ensure you have Python 3.6+ installed on your system.
-
-## Usage
-
-To use this script, run the following command:
-
-```bash
+bash
 python ocis_storage_dumper.py [topdir]
 
 Here topdir is the directory of OCIS storage. By default, it points to $HOME/.ocis.
