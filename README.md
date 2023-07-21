@@ -11,7 +11,7 @@ Ensure you have Python 3.6+ installed on your system.
 To use this script, run the following command:
 
 bash
-python ocis_storage_dumper.py [topdir]
+python3 ocis_storage_dumper.py [topdir]
 
 Here topdir is the directory of OCIS storage. By default, it points to $HOME/.ocis.
 
