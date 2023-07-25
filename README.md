@@ -9,7 +9,7 @@ Prerequisites
 Python 3
 Libraries: os, datetime, shutil, msgpack, json, sys, argparse
 
-Running the Script
+Running the Script:
 python3 ocis_dump.py [path_to_ocis_storage]
 If no argument is provided, it will default to ~/.ocis.
 
