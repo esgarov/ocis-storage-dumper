@@ -1,33 +1,37 @@
-# OCIS Storage Dumper
+OCIS Storage Dump Utility
 
-OCIS Storage Dumper is a Python script to traverse an ownCloud Infinite Scale (OCIS) storage system's directory structure, extract metadata from `.mpk` files and copy the blob files associated with these metadata to a separate directory.
+This utility is designed to assist in exploring the directory structure of OCIS storage. It extracts file and folder information, including metadata and blob ID information, from msgpack files in the OCIS storage.
 
-## Prerequisites
+Additionally, the utility copies the files from OCIS storage to a specified output directory.
 
-Ensure you have Python 3.6+ installed on your system.
+How To Use
+Prerequisites
+Python 3
+Libraries: os, datetime, shutil, msgpack, json, sys, argparse
+Running the Script
+python3 ocis_dump.py [path_to_ocis_storage]
+If no argument is provided, it will default to ~/.ocis.
 
-## Usage
+The script will:
 
-To use this script, run the following command:
+Walk through the OCIS storage directory structure.
+Extract metadata from msgpack files.
+Output information about the spaces (user's storage areas in OCIS), such as space type, space name, and total space size.
+Output a list of files in each space, along with the parent directory, blob ID, and corresponding OCIS storage location.
+Copy the files from OCIS storage to a temporary directory (default: /tmp/ocis-dump-{timestamp}).
+Output Example
 
-bash
-python3 ocis_storage_dumper.py [topdir]
+top is:  /home/user/.ocis
 
-Here topdir is the directory of OCIS storage. By default, it points to $HOME/.ocis.
+[personal/user1]
+    root = /home/user/.ocis/storage/users/spaces/xx/xx/xxxxxxx/nodes/xxxx/xxxx/xxxxxxx
+    treesize = 123456 bytes
+    symlink_tree =
+    1   ./dir1/file1.txt -> blobid=xxxxxxxxxxxxxx
+    2   ./dir2/file2.jpg -> blobid=xxxxxxxxxxxxxx
 
-The script generates a temporary directory in /tmp/ocis-dump-<timestamp>, where the extracted blob files will be placed.
-##Features
+Files were copied to: /tmp/ocis-dump-20230725060000
+This indicates that the script has successfully extracted the data from OCIS storage and copied the files to the specified directory. The first part of the output represents the information about the space, while the second part shows the information about the files within the space.
 
-    Walks through the directory structure of an OCIS storage.
-    Extracts metadata from .mpk files.
-    Copies blob files associated with the metadata to a separate directory.
-
-## Output
-
-The script will print information about each OCIS storage space, including the space's name, type, root directory, tree size, and a symlink tree. Files are copied to the output directory, and their locations are printed to the console.
-
-For each file, the script will attempt to resolve the file's parent directory and print a blobid for reference. If the blob file cannot be found, a warning will be printed.
-
-## Disclaimer
-
-Please use this script responsibly and ensure you have necessary permissions to access and modify the directories in question.
+Note
+This utility only retrieves and copies files. It doesn't modify the original OCIS storage data.
