@@ -1,38 +1,36 @@
-OCIS Storage Dump Utility
+## OCIS Storage Dump Utility
 
-This utility is designed to assist in exploring the directory structure of OCIS storage. It extracts file and folder information, including metadata and blob ID information, from msgpack files in the OCIS storage.
+This script is used to extract files from an OCIS instance, such as a user's personal or project space. The script walks through the OCIS storage structure, finds all the blob files associated with each user, and copies them into a specified directory. It can also be used to simply list the files without actually copying them.
 
-Additionally, the utility copies the files from OCIS storage to a specified output directory.
+## Requirements
 
-How To Use
-Prerequisites
-Python 3
-Libraries: os, datetime, shutil, msgpack, json, sys, argparse
+- Python 3
+- msgpack module (use `pip install msgpack` to install)
 
-Running the Script:
-python3 ocis_dump.py [path_to_ocis_storage]
-If no argument is provided, it will default to ~/.ocis.
+## Usage
 
-The script will:
+python3 dump.py [topdir] [-l/--list] [-u/--user=USERNAME]
+topdir: The directory of ocis storage. Default is $HOME/.ocis.
+-l/--list: List files without copying.
+-u/--user USERNAME: Filter by username.
 
-Walk through the OCIS storage directory structure.
-Extract metadata from msgpack files.
-Output information about the spaces (user's storage areas in OCIS), such as space type, space name, and total space size.
-Output a list of files in each space, along with the parent directory, blob ID, and corresponding OCIS storage location.
-Copy the files from OCIS storage to a temporary directory (default: /tmp/ocis-dump-{timestamp}).
-Output Example
+Examples
 
-top is:  /home/user/.ocis
+To extract all files from the OCIS storage and save to /tmp/ocis-dump-[timestamp]:
+python3 dump.py
 
-[personal/user1]
-    root = /home/user/.ocis/storage/users/spaces/xx/xx/xxxxxxx/nodes/xxxx/xxxx/xxxxxxx
-    treesize = 123456 bytes
-    symlink_tree =
-    1   ./dir1/file1.txt -> blobid=xxxxxxxxxxxxxx
-    2   ./dir2/file2.jpg -> blobid=xxxxxxxxxxxxxx
+To list all files in the OCIS storage without copying:
+python3 dump.py -l
 
-Files were copied to: /tmp/ocis-dump-20230725060000
-This indicates that the script has successfully extracted the data from OCIS storage and copied the files to the specified directory. The first part of the output represents the information about the space, while the second part shows the information about the files within the space.
+To extract all files from a particular user's spaces:
+python3 dump.py -u=john_doe
 
-Note
-This utility only retrieves and copies files. It doesn't modify the original OCIS storage data.
+Limitations
+
+This script is designed to work with the specific structure of OCIS. If the OCIS storage structure is modified or a different storage backend is used, the script may not work as expected.
+
+Please note that it only copies files that are available as blobs in the OCIS storage. Any files that are not yet fully uploaded or are stored in a different format cannot be copied.
+
+Contribution
+
+Contributions are welcome! Please feel free to submit a Pull Request.
